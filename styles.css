@@ -1,0 +1,27 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+h1 {
+  color: #1d1d86;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+#form-container {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  input,
+  button,
+  textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  label {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distribuição de Zipf</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Distribuição de Zipf</h1>
+    <div id="form-container">
+      <label for="text">Texto:</label><br />
+      <textarea id="text" rows="4" cols="50"></textarea><br /><br />
+      <label for="s">Parâmetro S:</label><br />
+      <input type="number" id="s" step="0.1" value="1" /><br /><br />
+      <button onclick="generateGraphs()">Gerar Gráfico</button>
+    </div>
+    <div id="plot"></div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
