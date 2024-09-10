@@ -52,7 +52,7 @@ function generateGraphs() {
   const traceDataReal = {
     x: ranks,
     y: frequencies,
-    mode: "lines",
+    mode: "markers",
     type: "scatter",
     name: "Dados Reais",
   };
