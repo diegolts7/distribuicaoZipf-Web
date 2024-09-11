@@ -7,6 +7,9 @@ function generateGraphs() {
   const words = text.split(/\s+/);
   const wordFreq = {};
   words.forEach((word) => {
+    if (word[word.length - 1] === "." || word[word.length - 1] === ",") {
+      word = word.slice(0, -1);
+    }
     word = word.toLowerCase();
     if (word) {
       wordFreq[word] = (wordFreq[word] || 0) + 1;
@@ -16,16 +19,16 @@ function generateGraphs() {
   // Ordenar por frequência
   const sortedWordFreq = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]);
 
-  const ranks = [];
+  const labels = []; // Para armazenar as palavras com rankings
   const frequencies = [];
-  sortedWordFreq.forEach(([_, freq], index) => {
-    ranks.push(index + 1);
+  sortedWordFreq.forEach(([word, freq], index) => {
+    labels.push(`${word} (#${index + 1})`); // Exemplo: "palavra (#1)"
     frequencies.push(freq);
   });
 
   // Calcular PMF e CDF teóricos
   const C = frequencies[0]; // Constante de normalização
-  const pmf = ranks.map((r) => C / Math.pow(r, s));
+  const pmf = labels.map((_, r) => C / Math.pow(r + 1, s));
   const cdf = pmf.reduce((acc, val, index) => {
     acc.push((acc[index - 1] || 0) + val);
     return acc;
@@ -33,7 +36,7 @@ function generateGraphs() {
 
   // Gerar gráficos
   const tracePMF = {
-    x: ranks,
+    x: labels, // Usando as palavras com rankings no eixo x
     y: pmf,
     mode: "lines",
     type: "scatter",
@@ -41,7 +44,7 @@ function generateGraphs() {
   };
 
   const traceCDF = {
-    x: ranks,
+    x: labels, // Usando as palavras com rankings no eixo x
     y: cdf,
     mode: "lines",
     type: "scatter",
@@ -50,15 +53,15 @@ function generateGraphs() {
   };
 
   const traceDataReal = {
-    x: ranks,
+    x: labels, // Usando as palavras com rankings no eixo x
     y: frequencies,
-    mode: "markers",
+    mode: "markers", // Alterado para mostrar bolinhas ao invés de linha
     type: "scatter",
     name: "Dados Reais",
   };
 
   const layout = {
-    xaxis: { type: "log", title: "Ranking" },
+    xaxis: { title: "Palavra (Ranking)", type: "category" }, // Exibe as palavras no eixo x
     yaxis: { type: "log", title: "Frequência" },
     title: "Distribuição de Zipf: PMF e CDF",
   };
